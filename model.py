@@ -41,6 +41,19 @@ class Event(db.Model):
     def __repr__(self):
         return f'<Event event_id={self.event_id} title={self.title}>'
 
+    # def as_dic(self, event_id, title, user_id, location, date, time, descvription, img):
+    #     """Return a dict with keys as attributes and values as their values"""
+    #     match_dict = {
+    #         "event_id": self.event_id,
+    #         "title": self.title,
+    #         "user_id": self.user_id,
+    #         "location": self.location,
+    #         "date": self.date,
+    #         "time": self.time,
+    #         "description": self.description,
+    #         "img": self.img
+    #     }
+    #     return match_dict
 
 class Comment(db.Model):
     """A comment."""
@@ -64,11 +77,11 @@ class Comment(db.Model):
         return f'<Comment comment_id={self.comment_id} event_id={self.event_id}>'
 
 
-def connect_to_db(app, db_name='events'):
+def connect_to_db(app):
     """Connect to database."""
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql:///{db_name}"
-    app.config["SQLALCHEMY_ECHO"] = True
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql:///events"
+    app.config["SQLALCHEMY_ECHO"] = False
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.app = app

@@ -22,6 +22,14 @@ def create_comment(event_id, user_id, body, date):
 
     return comment
 
+def all_events():
+    """Return all events"""
+    return Event.query.all()
+
+def get_event_by_id(event_id):
+    return Event.query.get(event_id)
+
+
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)

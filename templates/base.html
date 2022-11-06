@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+
+        <!-- We'll load React dependencies on all pages for this app. -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+        <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+        <!-- Include any page-specific JavaScript using this block. -->
+        {% block js %}
+        {% endblock %}
+
+        <link href="/static/css/site.css" rel="stylesheet">
+    </head>
+    <body>
+        <h1>Welcome site</h1>
+
+        <!-- Include the page's content with this block. -->
+        {% block body %}
+        {% endblock %}
+    </body>
+</html>
