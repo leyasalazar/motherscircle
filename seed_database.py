@@ -21,12 +21,13 @@ with open('data/users.json') as u:
     # Create users, store them in list 
     users_in_db = []
     for user in user_data:
-        email, password = (
+        email, password, name = (
             user["email"],
             user["password"],
+            user["name"]
         )
 
-        db_user = crud.create_user(email, password)
+        db_user = crud.create_user(email, password, name)
         users_in_db.append(db_user)
 
     model.db.session.add_all(users_in_db)

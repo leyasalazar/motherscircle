@@ -3,7 +3,7 @@
 # from flask import Flask
 from flask import (Flask, render_template, jsonify, request, flash, session,
                    redirect)
-from model import connect_to_db, db
+from model import db, connect_to_db
 import crud
 from datetime import datetime
 from jinja2 import StrictUndefined
@@ -12,30 +12,17 @@ app = Flask(__name__)
 app.secret_key = "SECRETSECRETSECRET"
 app.jinja_env.undefined = StrictUndefined 
 
-EVENT_DATA = [
-    {
-        "title": "Zoo",
-        "user_id": 1,
-        "location": "Minnesota Zoo",
-        "date": "2022-11-06",
-        "time": "12:00",
-        "description": "I am going with my son this weekend",
-        "img": "https://i.ibb.co/zHfcq0k/chris-briggs-WNAic3c-MDR8-unsplash.jpg"
-    },
-    {
-        "title": "Museum",
-        "user_id": 2,
-        "location": "MIA",
-        "date": "2022-11-06",
-        "time": "12:00",
-        "description": "I am going with my daughter this weekend",
-        "img": "https://i.ibb.co/zHfcq0k/chris-briggs-WNAic3c-MDR8-unsplash.jpg"
-    }]
-
 @app.route('/')
 def homepage():
     """View homepage."""
+    
     return render_template('homepage.html')
+
+@app.route("/events_most_commented.json")
+def show_events_most_commented():
+    """View events."""
+    events_most_commented = crud.events_most_commented()
+    return jsonify({"events": events_most_commented})
 
 @app.route('/events')
 def show_events():
@@ -66,7 +53,6 @@ def get_events_json():
             "img": event.img
         }
         events_data.append(db_event)
-    print(events_data)
     return jsonify({"events": events_data})
 
 # @app.route("/fetch_events_list")
@@ -85,8 +71,41 @@ def individual_event(event_id):
     """View individual event."""
 
     event= crud.get_event_by_id(event_id)
-    return render_template("event_details.html", event=event)
+    return render_template("event-details.html", event=event)
+
+@app.route("/comments.json")
+def get_comments_json(event_id):
+    """View comments for each event."""
+    comments_data = crud.get_comments_by_event(event_id)
+
+    return jsonify({"comments": comments_data})
+
+@app.route('/create-event')
+def create_event():
+    """Form to create a new event."""
+
+    return render_template('create-event.html')    
+
+@app.route('/add-event', methods=["POST"])
+def add_event():
+    """Show the events list with the new event created."""
+    user_id = 1
+    title = request.form.get('title')
+    location = request.form.get('location')
+    date = request.form.get('date')
+    str_time = request.form.get('time')
+    time = datetime.strptime(str_time, "%H:%M")
+    description = request.form.get('description')
+    img = request.form.get('img')
+    if img == "":
+        img = "https://i.ibb.co/zHfcq0k/chris-briggs-WNAic3c-MDR8-unsplash.jpg"
+
+    event = crud.create_event(title, user_id, location, date, time, description, img)
+    db.session.add(event)
+    db.session.commit()
+    # flash("Event created!")
     
+    return redirect("/events")  
 
 if __name__ == "__main__":
     connect_to_db(app)

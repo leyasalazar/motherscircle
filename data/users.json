@@ -1,22 +1,27 @@
 [
     {
         "email":"user1@test.com",
-        "password": "test"
+        "password": "test",
+        "name": "Julia"
     },
     {
         "email":"user2@test.com",
-        "password": "test"
+        "password": "test",
+        "name": "John"
     },
     {
         "email":"user3@test.com",
-        "password": "test"
+        "password": "test",
+        "name": "Emma"
     },
     {
         "email":"user4@test.com",
-        "password": "test"
+        "password": "test",
+        "name": "Martin"
     },
     {
         "email":"user5@test.com",
-        "password": "test"
+        "password": "test",
+        "name": "Ana"
     }
 ]

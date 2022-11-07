@@ -11,12 +11,13 @@ class User(db.Model):
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     email = db.Column(db.String(30), unique=True, nullable=False)
     password = db.Column(db.String(30), nullable=False)
-
+    name = db.Column(db.String(30), nullable=False)
+    
     events = db.relationship("Event", back_populates="user_create")
     comments = db.relationship("Comment", back_populates="user")
 
     def __repr__(self):
-        return f'<User user_id={self.user_id} email={self.email}>'
+        return f'<User user_id={self.user_id} name={self.name}>'
 
 
 class Event(db.Model):
