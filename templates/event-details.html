@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ event.title }} - Details{% endblock %}
+
+{% block js %}
+<script src="/static/js/showComments.jsx" type="text/jsx"></script>
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/maps.css"/>
+{% endblock %}
+{% block body %}
+<h1>{{ event.title }}</h1>
+<p id="address">{{ event.location }}</p>
+<p>
+  {{ event.description }}
+</p>
+
+<img src="{{ event.img }}">
+
+<section class="map">
+  <div id="map"></div>
+</section>
+
+<div class="container">
+    
+</div>
+
+<script src="/static/js/maps.js"></script>
+
+{% endblock %}

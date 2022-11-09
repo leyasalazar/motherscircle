@@ -10,6 +10,9 @@ def create_user(email, password, name):
     user = User(email=email, password=password, name=name)
 
     return user
+def get_name_user(user_id):
+
+    return User.query.get(user_id)
 
 def create_event(title, user_id, location, date, time, description, img):
     """Create and return a new event."""

@@ -17,9 +17,23 @@
 
         <link rel="shortcut icon" href="#">
         <link href="/static/css/site.css" rel="stylesheet">
+        {% block css %}
+        {% endblock %}
     </head>
     <body>
-        <h1>Welcome site</h1>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/events">Events</a></li>
+                </ul>
+                <div>
+                    <a href="#">Log In</a>
+                    <a href="#">Sign Up</a>
+                </div>
+            </nav>
+        </header>
 
         <!-- Include the page's content with this block. -->
         {% block body %}

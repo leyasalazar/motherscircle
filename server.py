@@ -66,18 +66,18 @@ def get_events_json():
 #     print(events_data)
 #     return jsonify({"events": events_data})
 
-@app.route("/<event_id>")
+@app.route("/events/<event_id>")
 def individual_event(event_id):
     """View individual event."""
 
     event= crud.get_event_by_id(event_id)
     return render_template("event-details.html", event=event)
 
-@app.route("/comments.json")
+@app.route("/events/<event_id>/comments.json")
 def get_comments_json(event_id):
     """View comments for each event."""
-    comments_data = crud.get_comments_by_event(event_id)
 
+    comments_data = crud.get_comments_by_event(event_id)
     return jsonify({"comments": comments_data})
 
 @app.route('/create-event')
@@ -106,6 +106,24 @@ def add_event():
     # flash("Event created!")
     
     return redirect("/events")  
+
+@app.route("/events/<event_id>/add-comment", methods=["POST"])
+def add_comment(event_id):
+    """Add new comment."""
+    user_id = 1
+    body = request.get_json().get("body")
+    date = datetime.now()
+    name = crud.get_name_user(user_id)
+    comment = crud.create_comment(event_id, user_id, body, date)
+    db.session.add(comment)
+    db.session.commit()
+    
+    new_comment = {
+        "name": name.name,
+        "body": body,
+        "date": str(date)
+    }
+    return jsonify({"success": True, "commentAdded": new_comment})
 
 if __name__ == "__main__":
     connect_to_db(app)

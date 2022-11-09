@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Create an event{% endblock %}
+
+{% block js %}
+
+{% endblock %}
+
+
+{% block body %}
+<div id="form">
+    <form action="/add-event" method="POST">
+        <div class="title">
+            <label for="title">Title: </label>
+            <input type="text" name="title" id="title" required>
+        </div>
+        <div class="location">
+            <label for="location">Address: </label>
+            <input type="location" name="location" id="location" required>
+        </div>
+        <div class="date">
+            <label for="date">Date: </label>
+            <input type="date" name="date" id="date" required>
+        </div>
+        <div class="time">
+            <label for="time">Time: </label>
+            <input type="time" name="time" id="time" required>
+        </div>
+        <div class="description">
+            <label for="description">Description: </label>
+            <input type="text" name="description" id="description" required>
+        </div>
+        <div class="img">
+            <label for="img">Do you want to add an image?: </label>
+            <input type="url" name="img" id="img">
+        </div>
+        <div class="submit">
+            <input type="submit" value="Add event">
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
