@@ -3,7 +3,7 @@
 function Event(props) {
   return (
     <div className="events_most_commented">
-      <a href={props.event_id}> {props.title} </a>
+      <a href={`events/${props.event_id}`}> {props.title} </a>
       <p> By {props.user_id} </p>
       <p> Location: {props.location} </p>
       <p> {props.date} {props.time}</p>

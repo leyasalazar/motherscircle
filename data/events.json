@@ -9,27 +9,27 @@
         "img": "https://i.ibb.co/zHfcq0k/chris-briggs-WNAic3c-MDR8-unsplash.jpg"
     },
     {
-        "title": "Museum",
+        "title": "Minneapolis Institute of Art",
         "user_id": 3,
-        "location": "MIA",
+        "location": "2400 3rd Ave S, Minneapolis, MN 55404",
         "date": "2022-11-06",
         "time": "13:00",
         "description": "I am going with my daughter this weekend",
         "img": "https://i.ibb.co/zHfcq0k/chris-briggs-WNAic3c-MDR8-unsplash.jpg"
     },
     {
-        "title": "Park",
+        "title": "Moir Park",
         "user_id": 1,
-        "location": "Park",
+        "location": "10320 Morgan Ave S, Bloomington, MN 55431",
         "date": "2022-11-05",
         "time": "17:00",
         "description": "I am going with my kids this weekend",
         "img": "https://i.ibb.co/zHfcq0k/chris-briggs-WNAic3c-MDR8-unsplash.jpg"
     },
     {
-        "title": "Farmers Market",
+        "title": "Richfield Farmers Market",
         "user_id": 1,
-        "location": "Richfield Park",
+        "location": "6335 Portland Ave, Richfield, MN 55423",
         "date": "2022-11-07",
         "time": "10:00",
         "description": "I am going with my daughter this weekend",

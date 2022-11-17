@@ -19,12 +19,29 @@
 
 <section class="map">
   <div id="map"></div>
+  <div id="weather">
+    <p>Temperature: {{ data['temperature']}} {{ data['temperatureUnit']}}</p>
+    <p>{{ data['detailedForecast']}}</p>
+    <div>
+      <img src=" {{ data['icon'] }}" alt="">
+    </div>
+    <!-- <span id="result-count">
+      {{ data }}
+       {# {{ specific_data }} #}  -->
+      <!-- </span> -->
+      
+  </div>
 </section>
 
 <div class="container">
     
 </div>
 
-<script src="/static/js/maps.js"></script>
 
+
+<script src="/static/js/maps.js"></script>
+<script
+  async
+  src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap">
+</script>
 {% endblock %}

@@ -60,9 +60,10 @@ def get_comments_by_event(event_id):
     comments = Comment.query.filter_by(event_id=event_id).all()
     comments_by_event = []
     for comment in comments:
+        name = get_name_user(comment.user_id)
         comment_data = {
             "comment_id": comment.comment_id,
-            "user_id": comment.user_id,
+            "name": name.name,
             "body": comment.body,
             "date": comment.date
         }

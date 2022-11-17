@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Log In{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+
+{% block body %}
+
+<div>
+    <h2>Create an account</h2>
+    <form action="createUser">
+        <div class="name">
+            <label for="name">Name: </label>
+            <input type="text" name="name" id="name" required>
+        </div>
+        <div class="email">
+            <label for="email">Email: </label>
+            <input type="email" name="email" id="email" required>
+        </div>
+        <div class="password">
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password" required>
+        </div>
+        <div class="submit">
+            <input type="submit" value="Next">
+        </div>
+    </form>
+</div>
+
+{% endblock %}

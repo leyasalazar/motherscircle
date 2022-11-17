@@ -5,17 +5,16 @@
 
 function initMap() {
   const map = new google.maps.Map(document.querySelector('#map'), {
-    center: {
-      lat: 44.977753,
-      lng: -93.2650108
-    },
-    zoom: 8,
+    // center: {
+    //   lat: 44.977753,
+    //   lng: -93.2650108
+    // },
+    // zoom: 8,
   });
   // Get the location through the data.
 
   const address = document.querySelector('#address').textContent
-  // const address = "13000 Zoo Blvd, Apple Valley, MN 55124"
-  console.log(address)
+
   const geocoder = new google.maps.Geocoder();
   geocoder.geocode({ address: address }, (results, status) => {
     if (status === 'OK') {
@@ -31,6 +30,7 @@ function initMap() {
       // Zoom in on the geolocated location
       map.setCenter(eventLocation);
       map.setZoom(18);
+
     } else {
       alert(`Geocode was unsuccessful for the following reason: ${status}`);
     }

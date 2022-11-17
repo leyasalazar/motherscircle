@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+
+{% block body %}
+
+<!-- Mount your react components on to this element. -->
+
+<div id="app">
+    <span id="result-count">
+        {{ specific_data }}
+      </span>
+      <div>
+        <img src=" {{ specific_data['icon'] }}" alt="">
+      </div>
+</div>
+
+
+{% endblock %}
