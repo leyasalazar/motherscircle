@@ -10,7 +10,15 @@
 
 <div>
     <h2>Create an account</h2>
-    <form action="createUser">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <!-- <div class="notification is-danger"> -->
+        <div>
+            {{ messages[0] }}. Go to <a href="/login">login page</a>.
+        </div>
+    {% endif %}
+    {% endwith %}
+    <form action="signup" method="POST">
         <div class="name">
             <label for="name">Name: </label>
             <input type="text" name="name" id="name" required>

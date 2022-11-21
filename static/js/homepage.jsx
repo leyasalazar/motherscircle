@@ -4,9 +4,9 @@ function Event(props) {
   return (
     <div className="events_most_commented">
       <a href={`events/${props.event_id}`}> {props.title} </a>
-      <p> By {props.user_id} </p>
+      <p> By {props.name} </p>
       <p> Location: {props.location} </p>
-      <p> {props.date} {props.time}</p>
+      <p> {props.date_time} </p>
       {/* <p> {props.description} </p> */}
       <img src={props.img} alt="event-img" />
     </div>
@@ -43,10 +43,10 @@ const allEvents = []
       <Event
         event_id={currentEvent.event_id}
         title={currentEvent.title}
-        user_id={currentEvent.user_id}
+        name={currentEvent.name}
         location={currentEvent.location}
-        date={currentEvent.date}
-        time={currentEvent.time}
+        date_time={currentEvent.date_time}
+        // time={currentEvent.time}
         // description={currentEvent.description}
         img={currentEvent.img}
       />

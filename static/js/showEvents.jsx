@@ -5,7 +5,7 @@ function Event(props) {
         <a href={`/events/${props.event_id}`}> {props.title} </a>
         <p> By {props.user_id} </p>
         <p> Location: {props.location} </p>
-        <p> {props.date} {props.time}</p>
+        <p> {props.date_time}</p>
         {/* <p> {props.description} </p> */}
         <img src={props.img} alt="event-img" />
       </div>
@@ -44,8 +44,8 @@ function EventContainer() {
           title={currentEvent.title}
           user_id={currentEvent.user_id}
           location={currentEvent.location}
-          date={currentEvent.date}
-          time={currentEvent.time}
+          date_time={currentEvent.date_time}
+          // time={currentEvent.time}
           // description={currentEvent.description}
           img={currentEvent.img}
         />

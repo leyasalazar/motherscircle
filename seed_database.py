@@ -47,10 +47,10 @@ with open('data/events.json') as f:
             event["description"],
             event["img"],
         )
-        date = datetime.strptime(event["date"], "%Y-%m-%d")
-        time = datetime.strptime(event["time"], "%H:%M")
+        date_time = datetime.strptime(event["date_time"], "%Y-%m-%d %H:%M")
+        # time = datetime.strptime(event["time"], )
 
-        db_event = crud.create_event(title, user_id, location, date, time, description, img)
+        db_event = crud.create_event(title, user_id, location, date_time, description, img)
         events_in_db.append(db_event)
 
     model.db.session.add_all(events_in_db)
@@ -68,9 +68,9 @@ with open('data/comments.json') as c:
             comment["user_id"],
             comment["body"],
         )
-        date = datetime.strptime(comment["date"], "%Y-%m-%d %H:%M")
+        date_time = datetime.strptime(comment["date"], "%Y-%m-%d %H:%M")
 
-        db_comment = crud.create_comment(event_id, user_id, body, date)
+        db_comment = crud.create_comment(event_id, user_id, body, date_time)
         comments_in_db.append(db_comment)
 
     model.db.session.add_all(comments_in_db)

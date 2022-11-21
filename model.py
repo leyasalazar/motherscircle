@@ -1,23 +1,27 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 
 db = SQLAlchemy()
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     """A user."""
 
     __tablename__ = 'users'
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    email = db.Column(db.String(30), unique=True, nullable=False)
-    password = db.Column(db.String(30), nullable=False)
-    name = db.Column(db.String(30), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     
     events = db.relationship("Event", back_populates="user_create")
     comments = db.relationship("Comment", back_populates="user")
 
     def __repr__(self):
         return f'<User user_id={self.user_id} name={self.name}>'
+        
+    def get_id(self):
+           return (self.user_id)
 
 
 class Event(db.Model):
@@ -31,8 +35,8 @@ class Event(db.Model):
                         db.ForeignKey("users.user_id"),
                         nullable=False)
     location = db.Column(db.String, nullable=False)
-    date = db.Column(db.DateTime, nullable=False)
-    time = db.Column(db.DateTime, nullable=False)
+    date_time = db.Column(db.DateTime, nullable=False)
+    # time = db.Column(db.DateTime, nullable=False)
     description = db.Column(db.Text)
     img = db.Column(db.String)
 
@@ -42,19 +46,19 @@ class Event(db.Model):
     def __repr__(self):
         return f'<Event event_id={self.event_id} title={self.title}>'
 
-    # def as_dic(self, event_id, title, user_id, location, date, time, descvription, img):
-    #     """Return a dict with keys as attributes and values as their values"""
-    #     match_dict = {
-    #         "event_id": self.event_id,
-    #         "title": self.title,
-    #         "user_id": self.user_id,
-    #         "location": self.location,
-    #         "date": self.date,
-    #         "time": self.time,
-    #         "description": self.description,
-    #         "img": self.img
-    #     }
-    #     return match_dict
+    def as_dic(self):
+        """Return a dict with keys as attributes and values as their values"""
+        match_dict = {
+            "event_id": self.event_id,
+            "title": self.title,
+            "user_id": self.user_id,
+            "location": self.location,
+            "date_time": self.date_time,
+            # "time": self.time,
+            "description": self.description,
+            "img": self.img
+        }
+        return match_dict
 
 class Comment(db.Model):
     """A comment."""

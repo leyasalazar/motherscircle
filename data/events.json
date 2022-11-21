@@ -3,8 +3,7 @@
         "title": "Minnesota Zoo",
         "user_id": 1,
         "location": "13000 Zoo Blvd, Apple Valley, MN 55124",
-        "date": "2022-11-06",
-        "time": "12:00",
+        "date_time": "2022-11-06 12:00",
         "description": "I am going with my son this weekend",
         "img": "https://i.ibb.co/zHfcq0k/chris-briggs-WNAic3c-MDR8-unsplash.jpg"
     },
@@ -12,8 +11,7 @@
         "title": "Minneapolis Institute of Art",
         "user_id": 3,
         "location": "2400 3rd Ave S, Minneapolis, MN 55404",
-        "date": "2022-11-06",
-        "time": "13:00",
+        "date_time": "2022-11-06 13:00",
         "description": "I am going with my daughter this weekend",
         "img": "https://i.ibb.co/zHfcq0k/chris-briggs-WNAic3c-MDR8-unsplash.jpg"
     },
@@ -21,8 +19,7 @@
         "title": "Moir Park",
         "user_id": 1,
         "location": "10320 Morgan Ave S, Bloomington, MN 55431",
-        "date": "2022-11-05",
-        "time": "17:00",
+        "date_time": "2022-11-05 17:00",
         "description": "I am going with my kids this weekend",
         "img": "https://i.ibb.co/zHfcq0k/chris-briggs-WNAic3c-MDR8-unsplash.jpg"
     },
@@ -30,8 +27,7 @@
         "title": "Richfield Farmers Market",
         "user_id": 1,
         "location": "6335 Portland Ave, Richfield, MN 55423",
-        "date": "2022-11-07",
-        "time": "10:00",
+        "date_time": "2022-11-07 10:00",
         "description": "I am going with my daughter this weekend",
         "img": "https://i.ibb.co/zHfcq0k/chris-briggs-WNAic3c-MDR8-unsplash.jpg"
     }

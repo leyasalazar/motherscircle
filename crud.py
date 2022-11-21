@@ -1,7 +1,6 @@
 """CRUD operations."""
 
 from model import db, User, Event, Comment, connect_to_db
-from sqlalchemy import func
 
 # Functions start here!
 def create_user(email, password, name):
@@ -10,13 +9,21 @@ def create_user(email, password, name):
     user = User(email=email, password=password, name=name)
 
     return user
-def get_name_user(user_id):
+
+def get_user_by_email(email):
+    return User.query.filter_by(email=email).first()
+
+def get_user_info(user_id):
 
     return User.query.get(user_id)
 
-def create_event(title, user_id, location, date, time, description, img):
+def get_password(email):
+    user_info = User.query.filter_by(email=email)
+    return user_info
+
+def create_event(title, user_id, location, date_time, description, img):
     """Create and return a new event."""
-    event = Event(title=title, user_id=user_id, location=location, date=date, time=time, description=description, img=img)
+    event = Event(title=title, user_id=user_id, location=location, date_time=date_time, description=description, img=img)
 
     return event
 
@@ -37,13 +44,14 @@ def events_most_commented():
 
     events_most_commented = []
     for event in events:
+        user = get_user_info(event.user_id)
         event_data = {
             "event_id": event.event_id,
             "title": event.title,
-            "user_id": event.user_id,
+            "name": user.name,
             "location": event.location,
-            "date": event.date,
-            "time": event.time, 
+            "date_time": event.date_time,
+            # "time": event.time, 
             "img": event.img
         }
         events_most_commented.append(event_data)
@@ -60,10 +68,10 @@ def get_comments_by_event(event_id):
     comments = Comment.query.filter_by(event_id=event_id).all()
     comments_by_event = []
     for comment in comments:
-        name = get_name_user(comment.user_id)
+        user = get_user_info(comment.user_id)
         comment_data = {
             "comment_id": comment.comment_id,
-            "name": name.name,
+            "name": user.name,
             "body": comment.body,
             "date": comment.date
         }
