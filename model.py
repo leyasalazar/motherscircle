@@ -14,8 +14,9 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     
-    events = db.relationship("Event", back_populates="user_create")
+    events = db.relationship("Event", back_populates="user")
     comments = db.relationship("Comment", back_populates="user")
+    attendees = db.relationship("Attendee", back_populates="user")
 
     def __repr__(self):
         return f'<User user_id={self.user_id} name={self.name}>'
@@ -35,13 +36,14 @@ class Event(db.Model):
                         db.ForeignKey("users.user_id"),
                         nullable=False)
     location = db.Column(db.String, nullable=False)
-    date_time = db.Column(db.DateTime, nullable=False)
+    datetime = db.Column(db.DateTime, nullable=False)
     # time = db.Column(db.DateTime, nullable=False)
     description = db.Column(db.Text)
     img = db.Column(db.String)
 
-    user_create = db.relationship("User", back_populates="events")
+    user = db.relationship("User", back_populates="events")
     comments = db.relationship("Comment", back_populates="event")
+    attendees = db.relationship("Attendee", back_populates="event")
 
     def __repr__(self):
         return f'<Event event_id={self.event_id} title={self.title}>'
@@ -53,8 +55,7 @@ class Event(db.Model):
             "title": self.title,
             "user_id": self.user_id,
             "location": self.location,
-            "date_time": self.date_time,
-            # "time": self.time,
+            "datetime": self.datetime,
             "description": self.description,
             "img": self.img
         }
@@ -73,7 +74,7 @@ class Comment(db.Model):
                         db.ForeignKey("users.user_id"),
                         nullable=False)
     body = db.Column(db.Text, nullable=False)
-    date = db.Column(db.DateTime)
+    datetime = db.Column(db.DateTime)
 
     event = db.relationship("Event", back_populates="comments")
     user = db.relationship("User", back_populates="comments")
@@ -81,6 +82,24 @@ class Comment(db.Model):
     def __repr__(self):
         return f'<Comment comment_id={self.comment_id} event_id={self.event_id}>'
 
+class Attendee(db.Model):
+    """A comment."""
+
+    __tablename__ = 'attendees'
+
+    attendee_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    event_id = db.Column(db.Integer,
+                         db.ForeignKey("events.event_id"),
+                         nullable=False)
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey("users.user_id"),
+                        nullable=False)
+
+    event = db.relationship("Event", back_populates="attendees")
+    user = db.relationship("User", back_populates="attendees")
+
+    def __repr__(self):
+        return f'<Attendee attendee_id={self.attendee_id} event_id={self.event_id}>'
 
 def connect_to_db(app):
     """Connect to database."""

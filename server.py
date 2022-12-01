@@ -151,22 +151,19 @@ def fetch_events_list():
     events_data = []
     for event in events:
         event_data = event.as_dic()
+        event_data['user_name'] = crud.get_user_info(event_data['user_id']).name
+        # print(event_data['user_name'])
         events_data.append(event_data)
-    print(events_data)
+    # print(events_data)
     return jsonify({"events": events_data})
 
-# @app.route("/events/<event_id>")
-# def individual_event(event_id):
-#     """View individual event."""
-
-#     event= crud.get_event_by_id(event_id)
-#     return render_template("event-details.html", event=event)
 
 @app.route("/events/<event_id>")
 def individual_event(event_id):
     """View individual event."""
 
     event= crud.get_event_by_id(event_id)
+    name = crud.get_user_info(event.user_id)
     location = event.location
     #geocodes from geopy to get lattitude and longitude
     g = geocoders.GoogleV3(API_KEY)
@@ -179,9 +176,40 @@ def individual_event(event_id):
     url = results['properties']['forecast']
     res_forecast = requests.get(url)
     data = res_forecast.json()
-    weather_info_now = data['properties']['periods'][0] 
+    weather_info_now = data['properties']['periods'][0]
 
-    return render_template("event-details.html", event=event, data=weather_info_now, api_key=API_KEY)
+    #get attendees
+    total_attendees = crud.get_total_attendees(event_id)
+    #check attendee
+    if current_user.is_authenticated :
+        attendee = crud.find_attendance(event_id, current_user.user_id)
+        # print(attendee.user_id)
+    else: 
+        attendee = None
+
+    return render_template("event-details.html", event=event,name=name, data=weather_info_now, api_key=API_KEY, total_attendees=total_attendees, attendee=attendee)
+
+@app.route("/attendance", methods=["POST"])
+def attendance():
+    """Update attedance"""
+    attendance = request.json.get("attendance")
+    event_id = request.json.get('event_id')
+    
+    attendee = crud.find_attendance(event_id, current_user.user_id)
+
+    if attendance == 'going' and not attendee:
+        attendee = crud.create_attendee(event_id, current_user.user_id)
+        # add the new attendee to the database
+        db.session.add(attendee)
+        db.session.commit()
+    else:
+        db.session.delete(attendee)
+        db.session.commit()
+
+    return {
+        "success": True, 
+        "status": f"You're {attendance} to this event.",
+        "total_attendees": crud.get_total_attendees(event_id)}
 
 @app.route("/events/<event_id>/comments.json")
 def get_comments_json(event_id):
@@ -198,18 +226,18 @@ def create_event():
 @app.route('/add-event', methods=["POST"])
 def add_event():
     """Add event info to the database"""
-    user_id = 1
+    user_id = current_user.user_id
     title = request.form.get('title')
     location = request.form.get('location')
     date = request.form.get('date')
-    str_time = request.form.get('time')
-    time = datetime.strptime(str_time, "%H:%M")
+    time = request.form.get('time')
+    datetime = date+' '+time
     description = request.form.get('description')
     img = request.form.get('img')
     if img == "":
         img = "https://i.ibb.co/zHfcq0k/chris-briggs-WNAic3c-MDR8-unsplash.jpg"
 
-    event = crud.create_event(title, user_id, location, date, time, description, img)
+    event = crud.create_event(title, user_id, location, datetime, description, img)
     db.session.add(event)
     db.session.commit()
     # flash("Event created!")
@@ -219,57 +247,22 @@ def add_event():
 @app.route("/events/<event_id>/add-comment", methods=["POST"])
 def add_comment(event_id):
     """Add new comment."""
-    user_id = 1
+    user_id = current_user.user_id
     body = request.get_json().get("body")
-    date = datetime.now()
-    name = crud.get_name_user(user_id)
-    comment = crud.create_comment(event_id, user_id, body, date)
+    datetime = datetime.now()
+    name = crud.get_user_info(user_id)
+    comment = crud.create_comment(event_id, user_id, body, datetime)
     db.session.add(comment)
     db.session.commit()
     
     new_comment = {
-        "name": name.name,
+        "name": name.name.capitalize(),
         "body": body,
-        "date": str(date)
+        "date": datetime
     }
     return jsonify({"success": True, "commentAdded": new_comment})
 
-# @app.route("/latlng", methods=["POST"])
-# def get_lat_lng():
-#     """Weather API."""
-#     lat = request.json.get("lat")
-#     lng = request.json.get("lng")
-#     print(lat, lng)
-#     response = requests.get(f'https://api.weather.gov/points/{lat},{lng}')
 
-#     search_results = response.json()
-#     url = search_results['properties']['forecast']
-#     res_forecast = requests.get(url)
-#     data = res_forecast.json()
-#     print(url)
-#     print(data['properties']['periods'][0])
-#     specific_data = data['properties']['periods'][0]
-#     return render_template('event-details.html',specific_data=specific_data)
-
-    # return {
-    #     "success": True, 
-    #     "status": f'{lat} ------ {lng}'}
-    # # return redirect("/events")  
-
-# @app.route("/weather")
-# def get_weather():
-#     """Weather API."""
-    
-#     response = requests.get('https://api.weather.gov/points/44.7675046,-93.1956983')
-
-#     search_results = response.json()
-#     url = search_results['properties']['forecast']
-#     res_forecast = requests.get(url)
-#     data = res_forecast.json()
-#     print(url)
-#     print(data['properties']['periods'][0]["icon"])
-#     specific_data = data['properties']['periods'][0]
-#     return render_template('weather.html',specific_data=specific_data)
 
 if __name__ == "__main__":
     connect_to_db(app)

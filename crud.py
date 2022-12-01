@@ -1,6 +1,6 @@
 """CRUD operations."""
 
-from model import db, User, Event, Comment, connect_to_db
+from model import db, User, Event, Comment, Attendee, connect_to_db
 
 # Functions start here!
 def create_user(email, password, name):
@@ -21,9 +21,9 @@ def get_password(email):
     user_info = User.query.filter_by(email=email)
     return user_info
 
-def create_event(title, user_id, location, date_time, description, img):
+def create_event(title, user_id, location, datetime, description, img):
     """Create and return a new event."""
-    event = Event(title=title, user_id=user_id, location=location, date_time=date_time, description=description, img=img)
+    event = Event(title=title, user_id=user_id, location=location, datetime=datetime, description=description, img=img)
 
     return event
 
@@ -50,16 +50,15 @@ def events_most_commented():
             "title": event.title,
             "name": user.name,
             "location": event.location,
-            "date_time": event.date_time,
-            # "time": event.time, 
+            "datetime": event.datetime,
             "img": event.img
         }
         events_most_commented.append(event_data)
     return events_most_commented
 
-def create_comment(event_id, user_id, body, date):
+def create_comment(event_id, user_id, body, datetime):
     """Create and return a new comment."""
-    comment = Comment(event_id=event_id, user_id=user_id, body=body, date=date)
+    comment = Comment(event_id=event_id, user_id=user_id, body=body, datetime=datetime)
 
     return comment
 
@@ -73,12 +72,29 @@ def get_comments_by_event(event_id):
             "comment_id": comment.comment_id,
             "name": user.name,
             "body": comment.body,
-            "date": comment.date
+            "datetime": comment.datetime
         }
         comments_by_event.append(comment_data)
     return comments_by_event
 
+def create_attendee(event_id, user_id):
+    """Create and return a new user."""
 
+    attendee = Attendee(event_id=event_id, user_id=user_id)
+
+    return attendee
+
+def get_total_attendees(event_id):
+    """Get all the attendees for the event."""
+    attendees = Attendee.query.filter_by(event_id=event_id).all()
+
+    return len(attendees)
+
+def find_attendance(event_id, user_id):
+    """Delete attendance for the event"""
+    attendee = Attendee.query.filter_by(event_id=event_id,user_id=user_id).first()
+
+    return attendee
 
 if __name__ == '__main__':
     from server import app

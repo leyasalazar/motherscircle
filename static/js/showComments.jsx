@@ -2,7 +2,7 @@ function Comment(props) {
     return (
       <div className="comment">
         <p> By {props.name} </p>
-        <p> {props.date} </p>
+        <p> {props.datetime} </p>
         <p> {props.body} </p>
       </div>
     );
@@ -48,13 +48,15 @@ function AddComment(props) {
 function CommentContainer() {
     const [comments, setComments] = React.useState([]);
 
-    function addComment(newComment) {
-        // [...cards] makes a copy of cards. Similar to currentCards = cards[:] in Python
-        const currentComments = [...comments];
-        // [...currentCards, newCard] is an array containing all elements in currentCards followed by newCard
-        setComments([...currentComments, newComment]);
-      }
+    let userLog = document.querySelector('#userLog').dataset.login
 
+    function addComment(newComment) {
+      // [...cards] makes a copy of cards. Similar to currentCards = cards[:] in Python
+      const currentComments = [...comments];
+      // [...currentCards, newCard] is an array containing all elements in currentCards followed by newCard
+      setComments([...currentComments, newComment]);
+    }
+    
     React.useEffect(() => {
         fetch(`/events/${event_id}/comments.json`)
         .then((response) => response.json())
@@ -65,22 +67,33 @@ function CommentContainer() {
     const allComments = []
 
     for (const currentComment of comments) {
+      // console.log(currentComment.date.slice(0, currentComment.date.length-7))
       allComments.push(
         <Comment
           name={currentComment.name}
-          date={currentComment.date}
+          datetime={currentComment.datetime.slice(0, currentComment.datetime.length-7)}
           body={currentComment.body}
         />
       );
     }
+    
 
-    return (
-      // <div className="grid">{ allEvents }</div>
-      <React.Fragment>
-        <AddComment addComment={addComment} />
-        <div className="grid">{allComments}</div>
-      </React.Fragment>
-    );
+    if(userLog === 'True'){
+      return (
+        // <div className="grid">{ allEvents }</div>
+        <React.Fragment>
+          <AddComment addComment={addComment} />
+          <div className="grid">{allComments}</div>
+        </React.Fragment>
+      );
+    } else {
+      return (
+        <React.Fragment>
+          <div className="grid">{allComments}</div>
+        </React.Fragment>
+      );
+    }
+    
 }
 
 ReactDOM.render(<CommentContainer />, document.querySelector('.container'));

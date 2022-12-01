@@ -4,6 +4,7 @@ import os
 import json
 # from random import choice, randint
 from datetime import datetime
+from werkzeug.security import generate_password_hash
 
 import crud
 import model
@@ -23,7 +24,7 @@ with open('data/users.json') as u:
     for user in user_data:
         email, password, name = (
             user["email"],
-            user["password"],
+            generate_password_hash(user["password"], method='sha256'),
             user["name"]
         )
 
@@ -74,4 +75,22 @@ with open('data/comments.json') as c:
         comments_in_db.append(db_comment)
 
     model.db.session.add_all(comments_in_db)
+    model.db.session.commit()
+
+with open('data/attendees.json') as c:
+    attendee_data = json.loads(c.read())
+
+
+    # Create events, store them in list 
+    attendees_in_db = []
+    for attendee in attendee_data:
+        event_id, user_id = (
+            attendee["event_id"],
+            attendee["user_id"]
+        )
+
+        db_attendee = crud.create_attendee(event_id, user_id)
+        attendees_in_db.append(db_attendee)
+
+    model.db.session.add_all(attendees_in_db)
     model.db.session.commit()

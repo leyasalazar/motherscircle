@@ -6,7 +6,7 @@ function Event(props) {
       <a href={`events/${props.event_id}`}> {props.title} </a>
       <p> By {props.name} </p>
       <p> Location: {props.location} </p>
-      <p> {props.date_time} </p>
+      <p> {props.datetime} </p>
       {/* <p> {props.description} </p> */}
       <img src={props.img} alt="event-img" />
     </div>
@@ -45,7 +45,7 @@ const allEvents = []
         title={currentEvent.title}
         name={currentEvent.name}
         location={currentEvent.location}
-        date_time={currentEvent.date_time}
+        datetime={currentEvent.datetime.slice(0, currentEvent.datetime.length-7)}
         // time={currentEvent.time}
         // description={currentEvent.description}
         img={currentEvent.img}

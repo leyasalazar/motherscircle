@@ -8,13 +8,30 @@
 {% block css %}
 <link rel="stylesheet" href="/static/css/maps.css"/>
 {% endblock %}
+
 {% block body %}
-<h1>{{ event.title }}</h1>
+<div id="userLog" data-login="{{ current_user.is_authenticated }}"></div>
+<h1 value="{{ event.event_id }}">{{ event.title }}</h1>
+<p>Created by {{ name.name }}</p>
 <p id="address">{{ event.location }}</p>
 <p>
   {{ event.description }}
 </p>
-
+<p><span id="total_attendees">{{ total_attendees }}</span> mom(s) are going</p>
+{% if current_user.is_authenticated %}
+  <form id="attendance">
+    <div class="submit">
+      {% if current_user.name != name.name%}
+        {% if attendee %}
+        <input type="submit" value="Not going" id="submit">
+        {% endif %}
+        {% if not attendee %}
+        <input type="submit" value="Going" id="submit">
+        {% endif %}
+      {% endif %}
+    </div>
+  </form>
+{% endif %}
 <img src="{{ event.img }}">
 
 <section class="map">
@@ -32,14 +49,24 @@
       
   </div>
 </section>
-
+<!-- {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  {% endwith %} -->
 <div class="container">
+  
     
 </div>
 
 
 
 <script src="/static/js/maps.js"></script>
+<script src="/static/js/attendee.js"></script>
 <script
   async
   src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap">

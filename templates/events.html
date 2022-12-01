@@ -9,8 +9,9 @@
 
 {% block body %}
 <h2>Events</h2>
+{% if current_user.is_authenticated %}
 <a href="/create-event">Create an event</a>
-
+{% endif %}
 <div class="container">
     
 </div>
