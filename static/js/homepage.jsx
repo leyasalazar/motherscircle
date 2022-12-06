@@ -2,13 +2,22 @@
 
 function Event(props) {
   return (
-    <div className="events_most_commented">
-      <a href={`events/${props.event_id}`}> {props.title} </a>
-      <p> By {props.name} </p>
-      <p> Location: {props.location} </p>
-      <p> {props.datetime} </p>
-      {/* <p> {props.description} </p> */}
-      <img src={props.img} alt="event-img" />
+    <div className="event_most_commented card mb-5">
+      <div className="row">
+        <div className="col-md-4 justify-content-end">
+          <img className="img-fluid rounded-start" src={props.img} alt="event-img" />
+        </div>
+        <div className="col-md-8">
+          <div className="card-body">
+            <h5 className="card-title">
+              <a href={`events/${props.event_id}`}> {props.title} </a>
+            </h5>
+            <p className="card-text"> By {props.name} </p>
+            <p className="card-text"> {props.location} </p>
+            <p className="card-text"> {props.datetime} </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -56,12 +65,9 @@ const allEvents = []
   return (
     // <div className="grid">{ allEvents }</div>
     <React.Fragment>
-    <h1>Welcome!</h1>
-    <img src="https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1738&q=80" alt="balloons"></img>
-    <a href="/events">Go to Events page</a>
     <div className="grid">{allEvents}</div>
     </React.Fragment>
   );
 }
 
-ReactDOM.render(<EventContainer />, document.querySelector('#app'));
+ReactDOM.render(<EventContainer />, document.querySelector('#most_commented'));

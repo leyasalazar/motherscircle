@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Welcome{% endblock %}
+{% block title %}Homepage{% endblock %}
 
 {% block js %}
   <script src="/static/js/homepage.jsx" type="text/jsx"></script>
@@ -9,9 +9,20 @@
 
 {% block body %}
 
+<main>
+  <div class="container-fluid home" id="home">
+    <div class="row h-100">
+      <h2>app name</h2>
+      <h1>Find a community for you and your kids</h1>
+    </div>
+  </div>
+</main>
+<a href="/events">Go to Events page</a>
 <!-- Mount your react components on to this element. -->
 
-<div id="app"></div>
+<div id="most_commented" class="m-5 col-md-10">
+
+</div>
 
 
 {% endblock %}

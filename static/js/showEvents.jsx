@@ -1,13 +1,22 @@
 
 function Event(props) {
     return (
-      <div className="event">
-        <a href={`/events/${props.event_id}`}> {props.title} </a>
-        <p> By {props.user_name} </p>
-        <p> Location: {props.location} </p>
-        <p> {props.datetime}</p>
-        {/* <p> {props.description} </p> */}
-        <img src={props.img} alt="event-img" />
+        <div className="event card mb-5">
+          <div className="row aligns-items-center">
+            <div className="col-md-4 justify-content-end">
+              <img className="img-fluid rounded-start" src={props.img} alt="event-img" />
+            </div>
+            <div className="col-md-8">
+              <div className="card-body">
+                <h5 className="card-title">
+                  <a href={`events/${props.event_id}`}> {props.title} </a>
+                </h5>
+                <p className="card-text"> By {props.name} </p>
+                <p className="card-text"> {props.location} </p>
+                <p className="card-text"> {props.datetime} </p>
+              </div>
+            </div>
+          </div>
       </div>
     );
   }
@@ -60,4 +69,4 @@ function EventContainer() {
     );
 }
 
-ReactDOM.render(<EventContainer />, document.querySelector('.container'));
+ReactDOM.render(<EventContainer />, document.querySelector('.events-container'));

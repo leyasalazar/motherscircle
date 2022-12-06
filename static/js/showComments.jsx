@@ -1,9 +1,13 @@
 function Comment(props) {
     return (
       <div className="comment">
-        <p> By {props.name} </p>
-        <p> {props.datetime} </p>
-        <p> {props.body} </p>
+        <div className="d-flex justify-content-around">
+          <p> {props.name} </p>
+          <p> {props.datetime} </p>
+        </div>
+        <div className="row">
+          <p> {props.body} </p>
+        </div>
       </div>
     );
   }
@@ -28,8 +32,25 @@ function AddComment(props) {
     }
     return (
         <React.Fragment>
-        <h2>Add Comment</h2>
-        <label htmlFor="commentInput">
+              <div className="col-md-8">
+                <h2>Add Comment</h2>
+                <div class="row mb-3" style={{border: '2px red solid'}}>
+                  <label htmlFor="commentInput">
+                    Comment:
+                    <input
+                    value={body}
+                    onChange={(event) => setBody(event.target.value)}
+                    id="commentInput"
+                    style={{ marginLeft: '5px', border: '2px red solid' }}
+                    />
+                  </label>
+                  <button type="button"  style={{ marginLeft: '10px', width:'50px' }} onClick={addNewComment}>
+                      Add
+                  </button>
+                </div>
+              </div>
+        
+        {/* <label htmlFor="commentInput">
             Comment:
             <input
             value={body}
@@ -40,7 +61,7 @@ function AddComment(props) {
         </label>
         <button type="button" style={{ marginLeft: '10px' }} onClick={addNewComment}>
             Add
-        </button>
+        </button> */}
         </React.Fragment>
     );
 }
@@ -96,4 +117,4 @@ function CommentContainer() {
     
 }
 
-ReactDOM.render(<CommentContainer />, document.querySelector('.container'));
+ReactDOM.render(<CommentContainer />, document.querySelector('.comments-container'));

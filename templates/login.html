@@ -7,42 +7,43 @@
 
 
 {% block body %}
-
-<div>
-    <h2>Log In</h2>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div>
-        <!-- <div class="notification is-danger"> -->
-            {{ messages[0] }}
+<section>
+    <div class="container mt-5 p-5" style="border: 2px red solid">
+        <div class="row align-items-center gx-5">
+            <div class="col align-self-center">
+                <h2>Log In</h2>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div>
+                    <!-- <div class="notification is-danger"> -->
+                        {{ messages[0] }}
+                    </div>
+                {% endif %}
+                {% endwith %}
+                <form action="handle-login" method="POST">
+                    <div class="mb-3">
+                      <label for="email" class="form-label">Email address</label>
+                      <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" required>
+                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" name="password" class="form-control" id="password" requuired>
+                    </div>
+                    <div class="mb-3 form-check">
+                      <input type="checkbox" name="remember" class="remember" id="remember">
+                      <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+            </div>
+            <div class="col h-50" style="border: 2px red solid;">
+                <h2>Sign Up</h2>
+                <p>Are you a new user?</p>
+                <button><a href="/signup">Create an account</a></button>
+            </div>
         </div>
-    {% endif %}
-    {% endwith %}
-    <form action="handle-login" method="POST">
-        <div class="email">
-            <label for="email">Email: </label>
-            <input type="email" name="email" id="email" required>
-        </div>
-        <div class="password">
-            <label for="password">Password: </label>
-            <input type="password" name="password" id="password" required>
-        </div>
-        <div>
-            <label class="checkbox">
-                <input type="checkbox" name="remember">
-                Remember me
-            </label>
-        </div>
-        <div class="submit">
-            <input type="submit" value="Log in">
-        </div>
-    </form>
-</div>
-
-<div>
-    <h2>Sign Up</h2>
-    <p>Are you a new user?</p>
-    <button><a href="/signup">Create an account</a></button>
-</div>
+    </div>
+</section>
 
 {% endblock %}

@@ -8,7 +8,51 @@
 
 
 {% block body %}
-<div id="form">
+
+<section>
+    <div class="container mt-5 p-5" style="border: 2px red solid">
+        <div class="row">
+            <div class="col-6">
+                <h2>Create an event</h2>
+                <!-- {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div>
+                        {{ messages[0] }}. Go to <a href="/login">login page</a>.
+                    </div>
+                {% endif %}
+                {% endwith %} -->
+                <form action="/add-event" method="POST">
+                    <div class="mb-3">
+                      <label for="title" class="form-label">Title</label>
+                      <input type="title" name="title" class="form-control" id="title" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="address" class="form-label">Address</label>
+                      <input type="address" name="address" class="form-control" id="address" requuired>
+                    </div>
+                    <div class="mb-3">
+                        <label for="date" class="form-label">Date</label>
+                        <input type="date" name="date" class="form-control" id="date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="time" class="form-label">Time</label>
+                        <input type="time" name="time" class="form-control" id="time" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="description" name="description" class="form-control" id="description" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="img" class="form-label">You can add the link to the image</label>
+                        <input type="url" name="img" class="form-control" id="img">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add event</button>
+                  </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <div id="form">
     <form action="/add-event" method="POST">
         <div class="title">
             <label for="title">Title: </label>
@@ -38,7 +82,7 @@
             <input type="submit" value="Add event">
         </div>
     </form>
-</div>
+</div> -->
 
 
 {% endblock %}

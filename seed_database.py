@@ -25,7 +25,7 @@ with open('data/users.json') as u:
         email, password, name = (
             user["email"],
             generate_password_hash(user["password"], method='sha256'),
-            user["name"]
+            user["name"].capitalize()
         )
 
         db_user = crud.create_user(email, password, name)

@@ -98,7 +98,7 @@ def add_user():
 
      # create a new user with the form data. Hash the password so the plaintext version isn't saved.
 
-    new_user = crud.create_user(email, generate_password_hash(password, method='sha256'), name)
+    new_user = crud.create_user(email, generate_password_hash(password, method='sha256'), name.capitalize())
     # add the new user to the database
     db.session.add(new_user)
     db.session.commit()
