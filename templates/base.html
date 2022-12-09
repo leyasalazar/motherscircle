@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8">
+        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{% endblock %}</title>
-        <!-- Boostrap -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
+        
         <!-- We'll load React dependencies on all pages for this app. -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
         <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+        <!-- Boostrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
         <!-- Include any page-specific JavaScript using this block. -->
         {% block js %}
@@ -19,52 +20,73 @@
 
         <link rel="shortcut icon" href="#">
         <link href="/static/css/site.css" rel="stylesheet">
-        {% block css %}
-        {% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container px-4 pt-2">
-                <a class="navbar-brand" href="/">LOGO</a>
+                <a class="navbar-brand" href="/">MOTHERS' CIRCLE</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Home</a>
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item mx-3">
+                            <a class="nav-link link text-uppercase" href="/">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/about">About</a>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link link text-uppercase" href="/about">About</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/events">Events</a>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link link text-uppercase" href="/events">Events</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <div style="width: 5px"></div>
                         </li>
                         {% if not current_user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login" id="login">Log In</a>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link in" href="/login" id="login">Log In</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/signup" id="signup">Sign Up</a>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link in" href="/signup" id="signup">Sign Up</a>
                         </li>
                         {% endif %}
                         {% if current_user.is_authenticated %}
-                        <li class="nav-item">
-                            <p class="nav-link">{{ current_user.name }}</p>
+                        <li class="nav-item mx-1">
+                            <p class="navbar-text">{{ current_user.name }}</p>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout" id="logout">Log Out</a>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link in" href="/logout" id="logout">Log Out</a>
                         </li>
                         {% endif %}
                     </ul> 
                 </div>
             </div>
         </nav>
-
+        
         <!-- Include the page's content with this block. -->
         {% block body %}
         {% endblock %}
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+        <footer class="container">
+            <div class="row my-4 justify-content-between align-items-center">
+                <div class="col-md-3">
+                    <a class="navbar-brand" href="/">MOTHERS' CIRCLE</a>
+                </div>
+                <div class="col-md-3">
+                    <ul class="navbar-nav flex-row">
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="/about">About</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="/events">Events</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     </body>
 </html>

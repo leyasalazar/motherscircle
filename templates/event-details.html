@@ -5,14 +5,11 @@
 {% block js %}
 <script src="/static/js/showComments.jsx" type="text/jsx"></script>
 {% endblock %}
-{% block css %}
-<link rel="stylesheet" href="/static/css/maps.css"/>
-{% endblock %}
 
 {% block body %}
-<section class="container mt-5">
-  <div class="row">
-    <div class="col">
+<section class="event-detail container mt-5">
+  <div class="row justify-content-around">
+    <div class="col-md-5">
       <div id="userLog" data-login="{{ current_user.is_authenticated }}"></div>
       <h1 value="{{ event.event_id }}">{{ event.title }}</h1>
       <p>Created by {{ name.name }}</p>
@@ -37,27 +34,27 @@
         </form>
       {% endif %}
     </div>
-    <div class="col-md-5">
+    <div class="col-md-4">
       <img src="{{ event.img }}">
     </div>
   </div>
-  <div class="row mt-5">
-    <div class="col" style="border: 2px red solid">
+  <div class="row justify-content-around my-5">
+    <div class="col-md-5">
       <div id="map"></div>
     </div>
-    <div class="col-md-5">
-      <div id="weather">
-        <p>Temperature: {{ data['temperature']}} {{ data['temperatureUnit']}}</p>
-        <p>{{ data['detailedForecast']}}</p>
+    <div class="col-md-4">
+      <div id="weather" class="d-flex flex-column align-items-center">
         <div>
-          <img src=" {{ data['icon'] }}" alt="">
+          <img src=" {{ data['icon'] }}" alt="weather">
         </div>
+        <p class="mt-3">Temperature: {{ data['temperature']}} {{ data['temperatureUnit']}}</p>
+        <p class="text-justify">{{ data['detailedForecast']}}</p>
       </div>
     </div>
   </div>
 </section>
 <section class="container">
-  <div class="row comments-container mt-5">
+  <div class="row comments-container mt-5 mx-5">
 
   </div>
 </section>

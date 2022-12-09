@@ -1,17 +1,17 @@
 
 function Event(props) {
     return (
-        <div className="event card mb-5">
-          <div className="row aligns-items-center">
-            <div className="col-md-4 justify-content-end">
+        <div className="event card mb-4">
+          <div className="row">
+            <div className="col-md-4">
               <img className="img-fluid rounded-start" src={props.img} alt="event-img" />
             </div>
-            <div className="col-md-8">
+            <div className="col-md-8 align-self-center">
               <div className="card-body">
                 <h5 className="card-title">
                   <a href={`events/${props.event_id}`}> {props.title} </a>
                 </h5>
-                <p className="card-text"> By {props.name} </p>
+                <p className="card-text"> By {props.user_name} </p>
                 <p className="card-text"> {props.location} </p>
                 <p className="card-text"> {props.datetime} </p>
               </div>
@@ -64,7 +64,9 @@ function EventContainer() {
     return (
       // <div className="grid">{ allEvents }</div>
       <React.Fragment>
-      <div className="grid">{allEvents}</div>
+      <div className="grid col-lg-8">
+        {allEvents}
+        </div>
       </React.Fragment>
     );
 }

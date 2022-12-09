@@ -1,7 +1,7 @@
 function Comment(props) {
     return (
       <div className="comment">
-        <div className="d-flex justify-content-around">
+        <div className="d-flex justify-content-between">
           <p> {props.name} </p>
           <p> {props.datetime} </p>
         </div>
@@ -32,19 +32,18 @@ function AddComment(props) {
     }
     return (
         <React.Fragment>
-              <div className="col-md-8">
-                <h2>Add Comment</h2>
-                <div class="row mb-3" style={{border: '2px red solid'}}>
+              <div className="col-md-7">
+                <h2 className="mb-2">Add Comment</h2>
+                <div class="d-flex align-items-start justify-content-between mb-3">
                   <label htmlFor="commentInput">
-                    Comment:
                     <input
                     value={body}
                     onChange={(event) => setBody(event.target.value)}
                     id="commentInput"
-                    style={{ marginLeft: '5px', border: '2px red solid' }}
+                    style={{ marginLeft: '5px'}}
                     />
                   </label>
-                  <button type="button"  style={{ marginLeft: '10px', width:'50px' }} onClick={addNewComment}>
+                  <button className="btn" type="button"   onClick={addNewComment}>
                       Add
                   </button>
                 </div>
@@ -104,13 +103,17 @@ function CommentContainer() {
         // <div className="grid">{ allEvents }</div>
         <React.Fragment>
           <AddComment addComment={addComment} />
-          <div className="grid">{allComments}</div>
+          <div className="grid col-md-8">
+          <h3 className="mt-4">Comments</h3>
+          {allComments}</div>
         </React.Fragment>
       );
     } else {
       return (
         <React.Fragment>
-          <div className="grid">{allComments}</div>
+          <div className="grid col-md-8">
+            <h3 className="mt-4">Comments</h3>
+            {allComments}</div>
         </React.Fragment>
       );
     }

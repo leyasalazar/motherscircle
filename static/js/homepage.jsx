@@ -4,10 +4,10 @@ function Event(props) {
   return (
     <div className="event_most_commented card mb-5">
       <div className="row">
-        <div className="col-md-4 justify-content-end">
+        <div className="col-md-4">
           <img className="img-fluid rounded-start" src={props.img} alt="event-img" />
         </div>
-        <div className="col-md-8">
+        <div className="col-md-8  align-self-center">
           <div className="card-body">
             <h5 className="card-title">
               <a href={`events/${props.event_id}`}> {props.title} </a>
@@ -23,7 +23,7 @@ function Event(props) {
 }
 
 function EventContainer() {
-//code commented used to test React
+// code commented used to test React
 // const exampleEvent = {
 //     "title": "Zoo",
 //     "user_id": 1,
@@ -65,7 +65,10 @@ const allEvents = []
   return (
     // <div className="grid">{ allEvents }</div>
     <React.Fragment>
-    <div className="grid">{allEvents}</div>
+    <div className="grid col-lg-8">
+      <h3 className="my-4">Most popular events</h3>
+      {allEvents} 
+      </div>
     </React.Fragment>
   );
 }

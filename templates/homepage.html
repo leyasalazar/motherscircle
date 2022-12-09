@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Homepage{% endblock %}
+{% block title %}Homepage - MOTHERS' CIRCLE {% endblock %}
 
 {% block js %}
   <script src="/static/js/homepage.jsx" type="text/jsx"></script>
@@ -11,18 +11,50 @@
 
 <main>
   <div class="container-fluid home" id="home">
-    <div class="row h-100">
-      <h2>app name</h2>
-      <h1>Find a community for you and your kids</h1>
+    <div class="row h-100 justify-content-center align-items-center">
+      <div class="col title">
+        <h2 class="fs-1">MOTHERS' CIRCLE</h2>
+        <h1 class="fs-2">Find a community for you and your kids</h1>
+      </div>
+      <div class="row h-20 text-md-center">
+        <div class="col icon">
+          <a href="#about-homepage">
+            <img class="img" src="../static/img/arrow.svg" alt="">
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </main>
-<a href="/events">Go to Events page</a>
+<section id="about-homepage">
+  <div class="container description">
+    <div class="row h-100 justify-content-center align-items-center">
+      <div class="col-lg-8 text-md-center justify-content-center">
+        <p class="fs-3 lh-lg">
+          Mothers' Circle is the place where you can connect with more moms. Find events you want to join and create new ones where moms want to go and meet. 
+        </p>
+        <div class="d-flex justify-content-center">
+          <button class="mt-5">
+            <a href="/events">Go to Events page 
+              <div class="arrow-wrapper">
+                <div class="arrow"></div>
+              </div>
+            </a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- Mount your react components on to this element. -->
 
-<div id="most_commented" class="m-5 col-md-10">
+<section class="homepage-events">
+  <div class="container">
+    <div id="most_commented" class="row justify-content-center">
 
-</div>
+    </div> 
+  </div>   
+</section>
 
 
 {% endblock %}
