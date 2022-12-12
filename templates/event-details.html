@@ -12,16 +12,17 @@
     <div class="col-md-5">
       <div id="userLog" data-login="{{ current_user.is_authenticated }}"></div>
       <h1 value="{{ event.event_id }}">{{ event.title }}</h1>
-      <p>Created by {{ name.name }}</p>
+      <p class="text-muted">Created by {{ name.name }}</p>
       <p id="address">Address: {{ event.location }}</p>
-      <p>Date and time: {{ event.datetime }}</p>
-      <p>
+      <p id="date">Date and time: {{ event.datetime }}</p>
+      <p class="description-event my-4">
         {{ event.description }}
       </p>
       <p><span id="total_attendees">{{ total_attendees }}</span> mom(s) are going</p>
       {% if current_user.is_authenticated %}
-        <form id="attendance">
-          <div class="submit">
+        <form id="attendance" class="pt-2">
+          <!-- <div class="submit"> -->
+            <div>
             {% if current_user.name != name.name%}
               {% if attendee %}
               <input type="submit" value="Not going" id="submit">
@@ -34,7 +35,7 @@
         </form>
       {% endif %}
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5">
       <img src="{{ event.img }}">
     </div>
   </div>
@@ -42,7 +43,7 @@
     <div class="col-md-5">
       <div id="map"></div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5 ms-5 ps-3">
       <div id="weather" class="d-flex flex-column align-items-center">
         <div>
           <img src=" {{ data['icon'] }}" alt="weather">

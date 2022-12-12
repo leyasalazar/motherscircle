@@ -40,10 +40,9 @@ def show_events_most_commented():
     events_most_commented = crud.events_most_commented()
     return jsonify({"events": events_most_commented})
 
-@app.route('/profile')
-@login_required
-def profile():
-    return render_template('profile.html', name=current_user.name)
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route("/login")
 def login_signup():

@@ -4,14 +4,14 @@ function Event(props) {
         <div className="event card mb-4">
           <div className="row">
             <div className="col-md-4">
-              <img className="img-fluid rounded-start" src={props.img} alt="event-img" />
+              <img className="rounded-start" src={props.img} alt="event-img" />
             </div>
             <div className="col-md-8 align-self-center">
               <div className="card-body">
                 <h5 className="card-title">
                   <a href={`events/${props.event_id}`}> {props.title} </a>
                 </h5>
-                <p className="card-text"> By {props.user_name} </p>
+                <p className="card-text text-muted"> By {props.user_name} </p>
                 <p className="card-text"> {props.location} </p>
                 <p className="card-text"> {props.datetime} </p>
               </div>

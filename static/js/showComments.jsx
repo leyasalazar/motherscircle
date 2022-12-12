@@ -32,10 +32,10 @@ function AddComment(props) {
     }
     return (
         <React.Fragment>
-              <div className="col-md-7">
+              <div className="col-md-8">
                 <h2 className="mb-2">Add Comment</h2>
-                <div class="d-flex align-items-start justify-content-between mb-3">
-                  <label htmlFor="commentInput">
+                <div class="d-flex align-items-start mb-3">
+                  <label htmlFor="commentInput" className="flex-fill">
                     <input
                     value={body}
                     onChange={(event) => setBody(event.target.value)}
@@ -43,7 +43,7 @@ function AddComment(props) {
                     style={{ marginLeft: '5px'}}
                     />
                   </label>
-                  <button className="btn" type="button"   onClick={addNewComment}>
+                  <button className="btn submit px-5 mx-3 w-25" type="button"   onClick={addNewComment}>
                       Add
                   </button>
                 </div>
