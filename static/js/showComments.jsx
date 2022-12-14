@@ -1,11 +1,11 @@
 function Comment(props) {
     return (
-      <div className="comment">
+      <div className="comment py-3">
         <div className="d-flex justify-content-between">
-          <p> {props.name} </p>
-          <p> {props.datetime} </p>
+          <p className="name-comment"> {props.name} </p>
+          <p class="text-muted"> {props.date_time} </p>
         </div>
-        <div className="row">
+        <div className="row body-comment">
           <p> {props.body} </p>
         </div>
       </div>
@@ -33,8 +33,8 @@ function AddComment(props) {
     return (
         <React.Fragment>
               <div className="col-md-8">
-                <h2 className="mb-2">Add Comment</h2>
-                <div class="d-flex align-items-start mb-3">
+                <h2 className="h5 mb-2">Add Comment</h2>
+                <div className="d-flex align-items-start mb-3">
                   <label htmlFor="commentInput" className="flex-fill">
                     <input
                     value={body}
@@ -88,10 +88,11 @@ function CommentContainer() {
 
     for (const currentComment of comments) {
       // console.log(currentComment.date.slice(0, currentComment.date.length-7))
+      // currentComment.date_time = currentComment.date_time.slice(0, currentComment.date_time.length-7)
       allComments.push(
         <Comment
           name={currentComment.name}
-          datetime={currentComment.datetime.slice(0, currentComment.datetime.length-7)}
+          date_time={currentComment.date_time.slice(0, currentComment.date_time.length-7)}
           body={currentComment.body}
         />
       );
@@ -103,16 +104,18 @@ function CommentContainer() {
         // <div className="grid">{ allEvents }</div>
         <React.Fragment>
           <AddComment addComment={addComment} />
+          <h3 className="my-4">Comments</h3>
           <div className="grid col-md-8">
-          <h3 className="mt-4">Comments</h3>
+          
           {allComments}</div>
         </React.Fragment>
       );
     } else {
       return (
         <React.Fragment>
+          <h3 className="my-4">Comments</h3>
           <div className="grid col-md-8">
-            <h3 className="mt-4">Comments</h3>
+            
             {allComments}</div>
         </React.Fragment>
       );

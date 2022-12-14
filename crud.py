@@ -72,7 +72,7 @@ def get_comments_by_event(event_id):
             "comment_id": comment.comment_id,
             "name": user.name,
             "body": comment.body,
-            "datetime": comment.datetime
+            "date_time": comment.datetime
         }
         comments_by_event.append(comment_data)
     return comments_by_event

@@ -64,7 +64,7 @@ function EventContainer() {
     return (
       // <div className="grid">{ allEvents }</div>
       <React.Fragment>
-      <div className="grid col-lg-8">
+      <div className="col-lg-8">
         {allEvents}
         </div>
       </React.Fragment>

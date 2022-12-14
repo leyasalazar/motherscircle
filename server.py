@@ -53,9 +53,11 @@ def login_signup():
 def handle_login():
     """Log user into application."""
 
-    email = request.form.get('email')
-    password = request.form.get('password')
-    remember = True if request.form.get('remember') else False
+    email = request.form['email']
+    password = request.form['password']
+    #     name = request.form.get('name')
+    # email = request.form.get('email')
+    remember = True if request.form['remember'] else False
 
     # check if the user actually exists
     # user = User.query.filter_by(email=email).first()
@@ -227,7 +229,7 @@ def add_event():
     """Add event info to the database"""
     user_id = current_user.user_id
     title = request.form.get('title')
-    location = request.form.get('location')
+    address = request.form.get('address')
     date = request.form.get('date')
     time = request.form.get('time')
     datetime = date+' '+time
@@ -236,7 +238,7 @@ def add_event():
     if img == "":
         img = "https://i.ibb.co/zHfcq0k/chris-briggs-WNAic3c-MDR8-unsplash.jpg"
 
-    event = crud.create_event(title, user_id, location, datetime, description, img)
+    event = crud.create_event(title, user_id, address, datetime, description, img)
     db.session.add(event)
     db.session.commit()
     # flash("Event created!")
@@ -248,16 +250,16 @@ def add_comment(event_id):
     """Add new comment."""
     user_id = current_user.user_id
     body = request.get_json().get("body")
-    datetime = datetime.now()
+    date_time = datetime.now()
     name = crud.get_user_info(user_id)
-    comment = crud.create_comment(event_id, user_id, body, datetime)
+    comment = crud.create_comment(event_id, user_id, body, date_time)
     db.session.add(comment)
     db.session.commit()
     
     new_comment = {
         "name": name.name.capitalize(),
         "body": body,
-        "date": datetime
+        "date_time": date_time
     }
     return jsonify({"success": True, "commentAdded": new_comment})
 

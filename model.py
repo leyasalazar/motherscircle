@@ -101,17 +101,49 @@ class Attendee(db.Model):
     def __repr__(self):
         return f'<Attendee attendee_id={self.attendee_id} event_id={self.event_id}>'
 
-def connect_to_db(app):
+
+def example_data():
+    """Create some sample data."""
+
+    # In case this is run more than once, empty out existing data
+    User.query.delete()
+    Event.query.delete()
+    Comment.query.delete()
+    Attendee.query.delete()
+
+    # Add sample employees and departments
+
+    rachel = User(email="rachel@test.com", password="123", name='rachel')
+    balloonicorn = User(email="balloonicorn@test.com", password="hackbright", name='balloonicorn')
+
+    ev1 = Event(title='zoo', user_id='1',location='zoo', datetime='2022-12-25 17:00', img=None)
+    ev2 = Event(title='market', user_id='2',location='market', datetime='2022-12-16 12:00', img='example')
+
+    comm1 = Comment(event_id='1', user_id='1', body='Nice, I am going', datetime='2022-12-25 17:00')
+    comm2 = Comment(event_id='1', user_id='1', body='Nice, I am going', datetime='2022-12-25 17:00')
+
+    att = Attendee(event_id='1',user_id='2')
+
+    db.session.add_all([rachel, balloonicorn])
+    db.session.add_all([ev1, ev2, comm1, comm2, att])
+    db.session.commit()
+    # try:
+    #     # <use session>
+    #     db.session.commit()
+    # except:
+    #     db.session.rollback()
+
+def connect_to_db(app, db_uri="postgresql:///events"):
     """Connect to database."""
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql:///events"
+    app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     app.config["SQLALCHEMY_ECHO"] = False
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.app = app
     db.init_app(app)
 
-    print("Connected to the db!")
+    
 
 
 if __name__ == '__main__':
@@ -121,3 +153,4 @@ if __name__ == '__main__':
     # too annoying; this will tell SQLAlchemy not to print out every
     # query it executes.
     connect_to_db(app)
+    print("Connected to the db!")

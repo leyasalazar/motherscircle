@@ -65,7 +65,7 @@ const allEvents = []
   return (
     // <div className="grid">{ allEvents }</div>
     <React.Fragment>
-    <div className="grid col-lg-8">
+    <div className="col-lg-8">
       <h3 className="my-4 py-4">Most commented events</h3>
       {allEvents} 
       </div>
