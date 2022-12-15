@@ -57,7 +57,7 @@ def handle_login():
     password = request.form['password']
     #     name = request.form.get('name')
     # email = request.form.get('email')
-    remember = True if request.form['remember'] else False
+    remember = True if request.form.get('remember') else False
 
     # check if the user actually exists
     # user = User.query.filter_by(email=email).first()
@@ -177,8 +177,10 @@ def individual_event(event_id):
     url = results['properties']['forecast']
     res_forecast = requests.get(url)
     data = res_forecast.json()
-    weather_info_now = data['properties']['periods'][0]
-
+    if data['properties']:
+        weather_info_now = data['properties']['periods'][0]
+    else:
+        weather_info_now = None
     #get attendees
     total_attendees = crud.get_total_attendees(event_id)
     #check attendee

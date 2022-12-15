@@ -2,7 +2,6 @@ from unittest import TestCase
 
 from server import app
 from model import connect_to_db, db, example_data
-from flask import session
 
 class EventsTests(TestCase):
     """Tests for my events site."""
@@ -67,7 +66,7 @@ class FlaskTestsDatabase(TestCase):
         result = self.client.post("/handle-login",
                                   data={"email": "rachel@test.com", "password": "123"},
                                   follow_redirects=True)
-        self.assertIn(b"Mother's Circle", result.data)
+        self.assertIn(b"Mothers' Circle", result.data)
 
     # def test_departments_list(self):
     #     """Test departments page."""

@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash
 
 db = SQLAlchemy()
 
@@ -113,16 +114,16 @@ def example_data():
 
     # Add sample employees and departments
 
-    rachel = User(email="rachel@test.com", password="123", name='rachel')
-    balloonicorn = User(email="balloonicorn@test.com", password="hackbright", name='balloonicorn')
+    rachel = User(email="rachel@test.com", password=generate_password_hash("123", method='sha256'), name='rachel')
+    balloonicorn = User(email="balloonicorn@test.com", password=generate_password_hash("hackbright", method='sha256'), name='balloonicorn')
 
-    ev1 = Event(title='zoo', user_id='1',location='zoo', datetime='2022-12-25 17:00', img=None)
-    ev2 = Event(title='market', user_id='2',location='market', datetime='2022-12-16 12:00', img='example')
+    ev1 = Event(title='zoo', user_id=1,location='10320 Morgan Ave S, Bloomington, MN 55431', datetime='2022-12-25 17:00', img=None)
+    ev2 = Event(title='market', user_id=2,location='10320 Morgan Ave S, Bloomington, MN 55431', datetime='2022-12-16 12:00', img='example')
 
-    comm1 = Comment(event_id='1', user_id='1', body='Nice, I am going', datetime='2022-12-25 17:00')
-    comm2 = Comment(event_id='1', user_id='1', body='Nice, I am going', datetime='2022-12-25 17:00')
+    comm1 = Comment(event_id=1, user_id=1, body='Nice, I am going', datetime='2022-12-25 17:00')
+    comm2 = Comment(event_id=1, user_id=1, body='Nice, I am going', datetime='2022-12-25 17:00')
 
-    att = Attendee(event_id='1',user_id='2')
+    att = Attendee(event_id=1,user_id=2)
 
     db.session.add_all([rachel, balloonicorn])
     db.session.add_all([ev1, ev2, comm1, comm2, att])
