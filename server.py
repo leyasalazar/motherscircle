@@ -14,7 +14,7 @@ import requests
 import os
 
 app = Flask(__name__)
-app.secret_key = "SECRETSECRETSECRET"
+app.secret_key = os.environ['SECRET_KEY']
 app.jinja_env.undefined = StrictUndefined 
 
 API_KEY = os.environ['API_KEY']
